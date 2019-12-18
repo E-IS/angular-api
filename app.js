@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-	var app = angular.module('myapp', ['angular-api', 'plugin-alert']);
+	var app = angular.module('myapp', ['ngApi', 'plugin-alert']);
 
 	app.controller('MainCtrl', ['$scope', '$log', 'Api', function ($scope, $log, Api) {
 		var submitForm = function(message) {
