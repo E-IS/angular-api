@@ -1,14 +1,17 @@
-(function() {
-    'use strict';
+// Source: https://github.com/E-IS/angular-api-demo/blob/master/api.js
+// Version: 0.1.0
+(function(window, angular, undefined) {'use strict';
 
-    // This file is adapted from Angular UI ngGrid project
-    // MIT License
+    // This file is adapted from Angular API Demo
+    // https://github.com/Schweigi/angular-api-demo
+
+    // This file is adapted from Angular UI ngGrid project (MIT License)
     // https://github.com/angular-ui/ng-grid/blob/v3.0.0-rc.20/src/js/core/factories/GridApi.js
-    angular.module('angular-api', []).factory('Api', ['$q', '$rootScope', function($q, $rootScope) {
+    angular.module('ngApi', []).factory('Api', ['$q', '$rootScope', function($q, $rootScope) {
         /**
          * Api provides the ability to register public methods events inside an app and allow
          * for other components to use the api via featureName.raise.methodName and featureName.on.eventName(function(args){}).
-         * 
+         *
          * @appInstance: App which the API is for
          * @apiId: Unique id in case multiple API instances do exist inside the same Angular environment
          */
@@ -87,13 +90,67 @@
             if (!feature.on) {
                 feature.on = {};
                 feature.raise = {};
+                feature.raisePromise = {};
             }
 
             var eventId = 'event:api:' + this.apiId + ':' + featureName + ':' + eventName;
 
             // Creating raise event method: featureName.raise.eventName
             feature.raise[eventName] = function() {
-                $rootScope.$emit.apply($rootScope, [eventId].concat(Array.prototype.slice.call(arguments)));
+              $rootScope.$emit.apply($rootScope, [eventId].concat(Array.prototype.slice.call(arguments)));
+            };
+
+            // Creating raise that return a promise event method: featureName.raisePromise.eventName
+            feature.raisePromise[eventName] = function() {
+              // If no listener: continue
+              var listenerCount = $rootScope.$$listenerCount[eventId];
+              if (!listenerCount) {
+                return $q.when();
+              }
+              // Add promise reject/resolve has last arguments
+              var deferred = $q.defer();
+                // If more than one listener : create a buffered defferred
+              if (listenerCount > 1) {
+                  deferred = {
+                      promise: deferred.promise,
+                      notify: deferred.notify,
+                      raw: deferred,
+                      count: 0 ,
+                      errors: [],
+                      results: []
+                  };
+                  deferred.checkFinish = function() {
+                    if (deferred.count < listenerCount) return;
+                    deferred.count = 0;
+                    if (deferred.errors.length) {
+                        if (deferred.errors.length == 1) {
+                            deferred.raw.reject(deferred.errors[0]);
+                        }
+                        else {
+                            deferred.raw.reject(deferred.errors);
+                        }
+                        deferred.errors = [];
+                    }
+                    else {
+                        deferred.raw.resolve(deferred.results);
+                        deferred.results = [];
+                    }
+                  };
+                  deferred.resolve = function(result) {
+                      deferred.results.push(result);
+                      deferred.count++;
+                      deferred.checkFinish();
+                  };
+                  deferred.reject = function(err) {
+                      deferred.errors.push(err);
+                      deferred.count++;
+                      deferred.checkFinish();
+                  };
+              }
+
+              var eventArgs = [eventId].concat(Array.prototype.slice.call(arguments)).concat([deferred]);
+              $rootScope.$emit.apply($rootScope, eventArgs);
+              return deferred.promise;
             };
 
             // Creating on event method: featureName.oneventName
@@ -132,8 +189,49 @@
         }
 
         /**
+         * Used to execute a function while disabling the specified event listeners.
+         * Disables the listenerFunctions, executes the callbackFn, and then enables the listenerFunctions again
+         *
+         * @listenerFuncs: Listener function or array of listener functions to suppress. These must be the same
+         * @functions that were used in the .on.eventName method
+         * @callBackFn: Function to execute with surpressed events
+         *
+         * Example:
+         *    var clicked = function (){
+         *       // Button clicked event handler
+         *    }
+         *
+         *    api.suppressEvents(clicked, function() {
+         *       // No clicked events will be fired
+         *       api.ui.form.main.submit.click(scope);
+         *    });
+         */
+        Api.prototype.hasListeners = function(listenerFuncs, callBackFn) {
+            var self = this;
+            var listeners = angular.isArray(listenerFuncs) ? listenerFuncs : [listenerFuncs];
+
+            var foundListeners = [];
+            listeners.forEach(function(l) {
+                foundListeners = self.eventListeners.filter(function(lstnr) {
+                    return l === lstnr.handler;
+                });
+            });
+
+            foundListeners.forEach(function(l) {
+                l.dereg();
+            });
+
+            callBackFn();
+
+            foundListeners.forEach(function(l) {
+                l.dereg = registerEventWithAngular(l.eventId, l.handler, self.gantt, l._this);
+            });
+
+        };
+
+        /**
          * Registers a new event for the given feature
-         * 
+         *
          * @featureName: Name of the feature
          * @methodName: Name of the method
          * @callBackFn: Function to execute
@@ -152,4 +250,5 @@
 
         return Api;
     }]);
-})();
+})(window, window.angular);
+
