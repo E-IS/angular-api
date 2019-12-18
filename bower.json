@@ -1,6 +1,6 @@
 {
   "name": "angular-api",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/E-IS/angular-api",
   "description": "Allow to contribute to a existing angular JS module, that publish an Api",
   "main": "angular-api.js",

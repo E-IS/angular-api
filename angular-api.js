@@ -1,5 +1,3 @@
-// Source: https://github.com/E-IS/angular-api/blob/master/api.js
-// Version: 0.1.0
 (function(window, angular, undefined) {'use strict';
 
     // This file is adapted from Angular API Demo
