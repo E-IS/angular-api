@@ -3,13 +3,20 @@
   "version": "0.3.0",
   "homepage": "https://github.com/E-IS/angular-api",
   "description": "Allow to contribute to a existing angular JS module, that publish an Api",
-  "main": "angular-api.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/E-IS/angular-api"
+  },
+  "main": "./src/angular-api.js",
   "keywords": [
     "angular",
     "api"
   ],
-  "license": "MIT License",
+  "ignore": [
+    "demo"
+  ],
+  "license": "MIT",
   "dependencies": {
-    "angular": "1.5.11"
+    "angular": ">=1.5.11"
   }
 }
