@@ -1,4 +1,4 @@
-// Source: https://github.com/E-IS/angular-api-demo/blob/master/api.js
+// Source: https://github.com/E-IS/angular-api/blob/master/api.js
 // Version: 0.1.0
 (function(window, angular, undefined) {'use strict';
 
