@@ -93,3 +93,25 @@ esac
 gulp build --release
 [[ $? -ne 0 ]] && exit 1 # Stop if failed
 
+
+# Commit and push
+echo "Executing git push, with tag: v$2"
+description="$4"
+if [[ "_$description" == "_" ]]; then
+   description="Release v$2"
+fi
+
+# Create the tag
+cd ${PROJECT_DIR} || exit 1
+git reset HEAD
+git add package.json release.sh
+[[ $? -ne 0 ]] && exit 1 # Stop if failed
+git commit -m "v$2"
+git tag -f -a "v$2" -m "${description}"
+
+# Push the tag
+git push -f origin "v$2"
+
+# Push the master branch
+git push -f origin
+[[ $? -ne 0 ]] && exit 1 # Stop if failed
