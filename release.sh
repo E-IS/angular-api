@@ -106,11 +106,11 @@ cd ${PROJECT_DIR} || exit 1
 git reset HEAD
 git add package.json release.sh dist/angular-api.js dist/angular-api.min.js dist/maps/angular-api.min.js.map
 [[ $? -ne 0 ]] && exit 1 # Stop if failed
-git commit -m "v$2"
-git tag -f -a "v$2" -m "${description}"
+git commit -m "$2"
+git tag -f -a "$2" -m "${description}"
 
 # Push the tag
-git push -f origin "v$2"
+git push -f origin "$2"
 
 # Push the master branch
 git push -f origin
