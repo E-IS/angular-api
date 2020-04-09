@@ -1,11 +1,11 @@
 {
   "name": "angular-expose-api",
   "version": "0.3.1",
-  "homepage": "https://github.com/E-IS/angular-expose-api",
+  "homepage": "https://github.com/e-is/angular-expose-api",
   "description": "Allow to contribute to a existing angular JS module, that publish an Api",
   "repository": {
     "type": "git",
-    "url": "git://github.com/E-IS/angular-expose-api"
+    "url": "git://github.com/e-is/angular-expose-api"
   },
   "main": "./src/angular-api.js",
   "keywords": [

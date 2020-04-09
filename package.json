@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:E-IS/angular-expose-api.git"
+    "url": "git@github.com:e-is/angular-expose-api.git"
   },
   "scripts": {
     "clean": "trash www/dist/**"
@@ -17,8 +17,8 @@
   ],
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/E-IS/angular-expose-api/issues",
-    "new": "https://github.com/E-IS/angular-expose-api/issues/new"
+    "url": "https://github.com/e-is/angular-expose-api/issues",
+    "new": "https://github.com/e-is/angular-expose-api/issues/new"
   },
   "dependencies": {
     "angular": "^1.5.11"

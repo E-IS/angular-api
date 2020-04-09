@@ -16,7 +16,7 @@ fi;
 
 echo "Preparing project environment.."
 PROJECT_NAME="angular-expose-api"
-REPO="E-IS/angular-expose-api"
+REPO="e-is/angular-expose-api"
 REPO_API_URL="https://api.github.com/repos/${REPO}"
 REPO_PUBLIC_URL="https://github.com/${REPO}"
 
