@@ -120,6 +120,6 @@ git push -f origin
 # Publish on npm repo
 if [[ "$1" == "pre" ]]; then
   npm publish . --dry-run
-else if [[ "$1" == "rel" ]]; then
+else
   npm publish .
 fi
