@@ -1,3 +1,5 @@
+Allow to expose and use API between AngularJS (v1.5+) components.
+
 Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular-api-demo)
 
 ## Features
