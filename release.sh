@@ -116,3 +116,10 @@ git push -f origin "${VERSION}"
 # Push the master branch
 git push -f origin
 [[ $? -ne 0 ]] && exit 1 # Stop if failed
+
+# Publish on npm repo
+if [[ "$1" == "pre" ]]; then
+  npm publish . --dry-run
+else if [[ "$1" == "rel" ]]; then
+  npm publish .
+fi
