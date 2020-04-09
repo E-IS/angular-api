@@ -125,5 +125,5 @@ if [[ "$1" == "pre" ]]; then
 else
   npm login
   [[ $? -ne 0 ]] && exit 1 # Stop if failed
-  npm publish . --access public --tag ${VERSION}
+  npm publish . --tag ${VERSION} --access public
 fi
