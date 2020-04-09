@@ -4,8 +4,59 @@ Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular
 
 ## Features
 
-- Allow to raise/catch events (from/to service, directive or controller).
-  * Example that declare an event in a service, then catched by a view controller: 
+- Allow to raise/catch events (from/to service, directive or controller);
+- Allow async event, with Promise (e.g. to wait the end of event processing, cacth error, etc.).
+
+
+## Usage
+Add AngularJS and the angular-expose-api.js to your main file (index.html)
+	
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.js"></script>
+<script src="angular-expose-api.js"></script>
+```
+
+Set `ngApi` as a dependency in your module:
+
+```javascript
+var app = angular.module('YourApp', ['ngApi'])
+```
+
+You can also use the `Api` service into any AngularJS component:
+
+Expose API in a Service:
+```javascript
+angular.module('my-service', ['ngApi'])
+      .factory('myService', function(Api) {
+  
+  function doSomething() {    
+    api.data.raise.changed(data); // Raise event
+  }
+
+  // Declare 
+  var api = new Api(this, $scope.$id);
+  api.registerEvent('data', 'changed');
+  api.registerMethod('data', 'doSomething', doSomething);
+
+  return {api}; // Exports
+})
+```
+
+Controller:
+```javascript
+function MainCtrl($scope, myService) {
+
+  // Catch the event
+  myService.api.data.on.changed($scope, function(data) {
+    alert("Service found data: " + data);
+  });
+
+}
+```
+
+### Example
+
+- Declaring an event API, in a service, then catch emitted events in a controller: 
     ```js
     angular.module('login-service', ['ngApi'])
       .factory('loginService', function(Api) {
@@ -41,8 +92,6 @@ Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular
     
     }]);
     ```
-
-- Allow async event, with Promise (e.g. to wait the end of event processing, cacth error, etc.).
   * Example, based on previous use case: 
  
     ```js    

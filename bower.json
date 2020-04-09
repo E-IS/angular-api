@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/e-is/angular-expose-api"
   },
-  "main": "./src/angular-api.js",
+  "main": "./dist/angular-expose-api.js",
   "keywords": [
     "angular",
     "api"

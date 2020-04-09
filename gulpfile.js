@@ -2,7 +2,6 @@
 
 const gulp = require('gulp'),
   fs = require("fs"),
-  zip = require('gulp-zip'),
   del = require('del'),
   uglify = require('gulp-uglify-es').default,
   sourcemaps = require('gulp-sourcemaps'),
@@ -74,14 +73,6 @@ function minify() {
   }
 }
 
-function archive() {
-  const project = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-
-  return gulp.src('./dist/**/*.*')
-    .pipe(zip(project.name + '-v'+project.version+'.zip'))
-    .pipe(gulp.dest('./'));
-}
-
 /* --------------------------------------------------------------------------
    -- Define gulp public tasks
    --------------------------------------------------------------------------*/
@@ -89,11 +80,10 @@ function archive() {
 gulp.task('clean', [], clean);
 gulp.task('copyFiles', ['clean'], copyFiles);
 gulp.task('minify', ['copyFiles'], minify);
-
 gulp.task('build', ['minify']);
+
 gulp.task('default', ['build']);
 
-gulp.task('archive', ['minify'], archive);
 
 gulp.task('help', function() {
   log(colors.green("Usage: gulp {build} OPTIONS"));
