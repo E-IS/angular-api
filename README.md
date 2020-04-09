@@ -2,7 +2,7 @@ Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular
 
 ## Features
 
-- Allow to raise/catch events (from/to service, directoive or controller):
+- Allow to raise/catch events (from/to service, directive or controller):
 
     ```js
     angular.module('login-service', ['ngApi'])
