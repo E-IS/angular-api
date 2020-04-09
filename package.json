@@ -1,0 +1,48 @@
+{
+  "name": "angular-api",
+  "version": "0.3.1",
+  "description": "Allow to contribute to a existing angular JS module, that publish an Api",
+  "author": "Benoit Lavenier <benoit.lavenier@e-is.pro>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:E-IS/angular-api.git"
+  },
+  "scripts": {
+    "clean": "trash www/dist/**"
+  },
+  "keywords": [
+    "api",
+    "angular"
+  ],
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/E-IS/angular-api/issues",
+    "new": "https://github.com/E-IS/angular-api/issues/new"
+  },
+  "dependencies": {
+    "angular": "^1.5.11"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "delete-empty": "^0.1.3",
+    "event-stream": "^3.3.4",
+    "glob": "^5.0.15",
+    "graceful-fs": "^4.2.3",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-header": "^1.2.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify-es": "^2.0.0",
+    "gulp-zip": "^3.2.0",
+    "jshint": "^2.10.3",
+    "playup": "^1.1.0",
+    "vinyl-fs": "^3.0.3",
+    "yargs": "^5.0.0"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0",
+    "npm": ">= 6.0.0"
+  }
+}
