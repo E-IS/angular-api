@@ -15,8 +15,8 @@ if [[ ! -f "${PROJECT_DIR}/package.json" ]]; then
 fi;
 
 echo "Preparing project environment.."
-PROJECT_NAME="angular-api"
-REPO="E-IS/angular-api"
+PROJECT_NAME="angular-expose-api"
+REPO="E-IS/angular-expose-api"
 REPO_API_URL="https://api.github.com/repos/${REPO}"
 REPO_PUBLIC_URL="https://github.com/${REPO}"
 
@@ -105,7 +105,7 @@ fi
 # Create the tag
 cd ${PROJECT_DIR} || exit 1
 git reset HEAD
-git add package.json release.sh dist/angular-api.js dist/angular-api.min.js dist/maps/angular-api.min.js.map
+git add package.json release.sh dist/angular-expose-api.js dist/angular-expose-api.min.js dist/maps/angular-expose-api.min.js.map
 [[ $? -ne 0 ]] && exit 1 # Stop if failed
 git commit -m "${VERSION}"
 git tag -f -a "${VERSION}" -m "${description}"
