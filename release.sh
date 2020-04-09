@@ -120,6 +120,10 @@ git push -f origin
 # Publish on npm repo
 if [[ "$1" == "pre" ]]; then
   npm publish . --dry-run
+  [[ $? -ne 0 ]] && exit 1 # Stop if failed
+
 else
-  npm publish .
+  npm login
+  [[ $? -ne 0 ]] && exit 1 # Stop if failed
+  npm publish . --access public --tag ${VERSION}
 fi
