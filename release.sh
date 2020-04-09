@@ -73,14 +73,15 @@ if [[ ! $2 =~ ^[0-9]+.[0-9]+.[0-9]+((a|b)[0-9]+)?$ ]]; then
   echo " - release_description: a comment on release"
   exit 1
 fi
+VERSION=$2
 
 # Update the package version
 case "$1" in
   rel|pre)
-    echo "new build version: $2"
+    echo "new build version: ${VERSION}"
 
     # Change the version in files: 'package.json' and 'config.xml'
-    sed -i "s/version\": \"$current\"/version\": \"$2\"/g" package.json
+    sed -i "s/version\": \"$current\"/version\": \"${VERSION}\"/g" package.json
 
     ;;
   *)
@@ -98,7 +99,7 @@ gulp build --release
 echo "Executing git push, with tag: v$2"
 description="$4"
 if [[ "_$description" == "_" ]]; then
-   description="Release v$2"
+   description="Release v${VERSION}"
 fi
 
 # Create the tag
@@ -106,11 +107,11 @@ cd ${PROJECT_DIR} || exit 1
 git reset HEAD
 git add package.json release.sh dist/angular-api.js dist/angular-api.min.js dist/maps/angular-api.min.js.map
 [[ $? -ne 0 ]] && exit 1 # Stop if failed
-git commit -m "$2"
-git tag -f -a "$2" -m "${description}"
+git commit -m "${VERSION}"
+git tag -f -a "${VERSION}" -m "${description}"
 
 # Push the tag
-git push -f origin "$2"
+git push -f origin "${VERSION}"
 
 # Push the master branch
 git push -f origin
