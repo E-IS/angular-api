@@ -2,8 +2,8 @@ Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular
 
 ## Features
 
-- Allow to raise/catch events (from/to service, directive or controller):
-
+- Allow to raise/catch events (from/to service, directive or controller).
+  * Example that declare an event in a service, then catched by a view controller: 
     ```js
     angular.module('login-service', ['ngApi'])
       .factory('loginService', function(Api) {
@@ -40,10 +40,12 @@ Project based on [Schweigi/angular-api-demo](https://github.com/Schweigi/angular
     }]);
     ```
 
- - Allow async event, with Promise (e.g. to wait the end of event processing, cacth error, etc.):
+- Allow async event, with Promise (e.g. to wait the end of event processing, cacth error, etc.).
+  * Example, based on previous use case: 
  
-```js    
-      .factory('loginService', function(Api) {
+    ```js    
+    angular.module('login-service', ['ngApi'])
+        .factory('loginService', function(Api) {
         // (...)
     
         function login(username, pwd) {
